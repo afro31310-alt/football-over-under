@@ -1,88 +1,4 @@
-```javascript
-/*
-  O/U PREDICTOR
-  Frontend prediction display
-
-  Later this file can be connected to your backend API.
-*/
-
-
-const matches = [
-
-  {
-    id: 1,
-    league: "Premier League",
-    home: "Arsenal",
-    away: "Chelsea",
-    time: "20:00",
-
-    over05: 96,
-    over15: 84,
-    over25: 68,
-    over35: 44,
-
-    under15: 16,
-    under25: 32,
-    under35: 56
-  },
-
-  {
-    id: 2,
-    league: "La Liga",
-    home: "Barcelona",
-    away: "Sevilla",
-    time: "18:30",
-
-    over05: 97,
-    over15: 88,
-    over25: 73,
-    over35: 49,
-
-    under15: 12,
-    under25: 27,
-    under35: 51
-  },
-
-  {
-    id: 3,
-    league: "Serie A",
-    home: "Inter Milan",
-    away: "Roma",
-    time: "19:45",
-
-    over05: 94,
-    over15: 79,
-    over25: 61,
-    over35: 37,
-
-    under15: 21,
-    under25: 39,
-    under35: 63
-  },
-
-  {
-    id: 4,
-    league: "Bundesliga",
-    home: "Bayern Munich",
-    away: "Dortmund",
-    time: "17:30",
-
-    over05: 98,
-    over15: 91,
-    over25: 76,
-    over35: 55,
-
-    under15: 9,
-    under25: 24,
-    under35: 45
-  }
-
-];
-
-
-/* -------------------------------
-   DOM ELEMENTS
--------------------------------- */
+const API_URL = "https://football-over-under-api.onrender.com/api/matches";
 
 const matchesList = document.getElementById("matchesList");
 const emptyState = document.getElementById("emptyState");
@@ -94,20 +10,43 @@ const menuBtn = document.getElementById("menuBtn");
 const navMenu = document.getElementById("navMenu");
 
 
-/* -------------------------------
+/* ==============================
    MOBILE MENU
--------------------------------- */
+============================== */
 
-menuBtn.addEventListener("click", () => {
+if (menuBtn) {
+  menuBtn.addEventListener("click", () => {
+    navMenu.classList.toggle("open");
+  });
+}
 
-  navMenu.classList.toggle("open");
 
-});
+/* ==============================
+   FORMAT MATCH TIME
+============================== */
+
+function formatMatchTime(dateString) {
+
+  if (!dateString) {
+    return "Time unavailable";
+  }
+
+  const date = new Date(dateString);
+
+  if (isNaN(date.getTime())) {
+    return "Time unavailable";
+  }
+
+  return date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
 
 
-/* -------------------------------
+/* ==============================
    CREATE PREDICTION
--------------------------------- */
+============================== */
 
 function createPrediction(label, value, type) {
 
@@ -124,7 +63,7 @@ function createPrediction(label, value, type) {
       </span>
 
       <strong class="prediction-value ${valueClass}">
-        ${value}%
+        ${Number(value || 0)}%
       </strong>
 
       <small>
@@ -136,14 +75,13 @@ function createPrediction(label, value, type) {
 }
 
 
-/* -------------------------------
+/* ==============================
    CREATE MATCH CARD
--------------------------------- */
+============================== */
 
 function createMatchCard(match) {
 
   return `
-
     <article
       class="match-card"
       data-match-id="${match.id}"
@@ -152,11 +90,11 @@ function createMatchCard(match) {
       <div class="match-top">
 
         <span class="league">
-          🏆 ${match.league}
+          🏆 ${match.league || "Football"}
         </span>
 
         <span class="match-time">
-          ${match.time}
+          ${formatMatchTime(match.time)}
         </span>
 
       </div>
@@ -165,7 +103,7 @@ function createMatchCard(match) {
       <div class="teams">
 
         <div class="team">
-          ${match.home}
+          ${match.home || "Home Team"}
         </div>
 
         <div class="vs">
@@ -173,7 +111,7 @@ function createMatchCard(match) {
         </div>
 
         <div class="team">
-          ${match.away}
+          ${match.away || "Away Team"}
         </div>
 
       </div>
@@ -226,20 +164,19 @@ function createMatchCard(match) {
       </div>
 
     </article>
-
   `;
 }
 
 
-/* -------------------------------
+/* ==============================
    DISPLAY MATCHES
--------------------------------- */
+============================== */
 
-function displayMatches(list = matches) {
+function displayMatches(matches) {
 
   matchesList.innerHTML = "";
 
-  if (list.length === 0) {
+  if (!matches || matches.length === 0) {
 
     emptyState.classList.remove("hidden");
 
@@ -250,20 +187,89 @@ function displayMatches(list = matches) {
 
   emptyState.classList.add("hidden");
 
-  matchCount.textContent = list.length;
+  matchCount.textContent = matches.length;
 
-  list.forEach(match => {
+  matches.forEach(match => {
 
-    matchesList.innerHTML += createMatchCard(match);
+    matchesList.insertAdjacentHTML(
+      "beforeend",
+      createMatchCard(match)
+    );
 
   });
-
 }
 
 
-/* -------------------------------
+/* ==============================
+   LOAD REAL MATCHES
+============================== */
+
+async function loadMatches() {
+
+  matchesList.innerHTML = `
+    <div class="empty-state">
+      <div>⚽</div>
+      <h3>Loading matches...</h3>
+      <p>Getting today's football fixtures.</p>
+    </div>
+  `;
+
+  try {
+
+    const response = await fetch(API_URL);
+
+    if (!response.ok) {
+      throw new Error(
+        "Server returned " + response.status
+      );
+    }
+
+    const data = await response.json();
+
+    console.log("API response:", data);
+
+
+    if (!data.success) {
+
+      throw new Error(
+        data.message || "Unable to load matches"
+      );
+
+    }
+
+
+    displayMatches(data.matches || []);
+
+
+  } catch (error) {
+
+    console.error("Match loading error:", error);
+
+    matchCount.textContent = "0";
+
+    matchesList.innerHTML = `
+      <div class="empty-state">
+
+        <div>⚠️</div>
+
+        <h3>
+          Unable to load matches
+        </h3>
+
+        <p>
+          Please refresh the page and try again.
+        </p>
+
+      </div>
+    `;
+
+  }
+}
+
+
+/* ==============================
    FILTERS
--------------------------------- */
+============================== */
 
 filters.forEach(button => {
 
@@ -283,16 +289,18 @@ filters.forEach(button => {
 
     cards.forEach(card => {
 
+      const predictions =
+        card.querySelectorAll(".prediction");
+
+
       if (filter === "all") {
 
-        card.classList.remove("hidden");
+        predictions.forEach(prediction => {
+          prediction.classList.remove("hidden");
+        });
 
         return;
       }
-
-
-      const predictions =
-        card.querySelectorAll(".prediction");
 
 
       predictions.forEach(prediction => {
@@ -311,18 +319,14 @@ filters.forEach(button => {
 
           prediction.classList.remove("hidden");
 
-        }
-
-        else if (
+        } else if (
           filter === "under" &&
           label.includes("under")
         ) {
 
           prediction.classList.remove("hidden");
 
-        }
-
-        else {
+        } else {
 
           prediction.classList.add("hidden");
 
@@ -337,47 +341,24 @@ filters.forEach(button => {
 });
 
 
-/* -------------------------------
-   START WEBSITE
--------------------------------- */
-
-displayMatches();
-
+/* ==============================
+   AUTO REFRESH
+============================== */
 
 /*
-  ------------------------------------
-  FUTURE API CONNECTION
-  ------------------------------------
-
-  When your backend is ready, replace
-  the demo data with something similar:
-
-  async function loadRealMatches() {
-
-    try {
-
-      const response = await fetch(
-        "YOUR-BACKEND-URL/api/matches"
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to load matches");
-      }
-
-      const data = await response.json();
-
-      displayMatches(data);
-
-    } catch (error) {
-
-      console.error(error);
-
-    }
-
-  }
-
-  loadRealMatches();
-
+   Check for new fixtures every 10 minutes.
 */
-```
+
+setInterval(() => {
+
+  loadMatches();
+
+}, 10 * 60 * 1000);
+
+
+/* ==============================
+   START
+============================== */
+
+loadMatches();
 
