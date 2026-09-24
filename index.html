@@ -1,1 +1,246 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07111f">
+
+  <title>O/U Predictor</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="logo">
+      <span>⚽</span>
+      O/U <strong>PREDICTOR</strong>
+    </div>
+
+    <button class="menu-btn" id="menuBtn">☰</button>
+
+    <nav id="navMenu">
+      <a href="#home">Home</a>
+      <a href="#matches">Matches</a>
+      <a href="#over">Over</a>
+      <a href="#under">Under</a>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+      <div class="hero-content">
+
+        <div class="live-badge">
+          <span></span> LIVE PREDICTION CENTER
+        </div>
+
+        <h1>
+          Football<br>
+          <span>Over / Under</span>
+          Predictions
+        </h1>
+
+        <p>
+          Statistical football predictions focused exclusively
+          on goals markets.
+        </p>
+
+        <a href="#matches" class="main-btn">
+          View Predictions
+        </a>
+
+      </div>
+
+      <div class="hero-ball">
+        ⚽
+      </div>
+
+    </section>
+
+
+    <!-- STATS -->
+    <section class="stats">
+
+      <div class="stat-card">
+        <strong id="matchCount">0</strong>
+        <span>Matches</span>
+      </div>
+
+      <div class="stat-card">
+        <strong>7</strong>
+        <span>O/U Markets</span>
+      </div>
+
+      <div class="stat-card">
+        <strong>24/7</strong>
+        <span>Updates</span>
+      </div>
+
+    </section>
+
+
+    <!-- FILTERS -->
+    <section class="filters" id="matches">
+
+      <div>
+        <h2>Today's Predictions</h2>
+        <p class="subtitle">
+          Select a market to filter the predictions.
+        </p>
+      </div>
+
+      <div class="filter-buttons">
+
+        <button class="filter active" data-filter="all">
+          All
+        </button>
+
+        <button class="filter" data-filter="over">
+          Over
+        </button>
+
+        <button class="filter" data-filter="under">
+          Under
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- MATCHES -->
+    <section class="matches-container">
+
+      <div id="matchesList"></div>
+
+      <div id="emptyState" class="empty-state hidden">
+        <div>⚽</div>
+        <h3>No predictions available</h3>
+        <p>New matches will appear when available.</p>
+      </div>
+
+    </section>
+
+
+    <!-- OVER -->
+    <section class="market-section" id="over">
+
+      <div class="section-title">
+        <span class="section-icon">🔥</span>
+
+        <div>
+          <h2>Over Markets</h2>
+          <p>Goals above the selected line.</p>
+        </div>
+      </div>
+
+      <div class="market-grid">
+
+        <div class="market-info">
+          <strong>Over 0.5</strong>
+          <span>1+ goal</span>
+        </div>
+
+        <div class="market-info">
+          <strong>Over 1.5</strong>
+          <span>2+ goals</span>
+        </div>
+
+        <div class="market-info">
+          <strong>Over 2.5</strong>
+          <span>3+ goals</span>
+        </div>
+
+        <div class="market-info">
+          <strong>Over 3.5</strong>
+          <span>4+ goals</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- UNDER -->
+    <section class="market-section" id="under">
+
+      <div class="section-title">
+        <span class="section-icon">🧊</span>
+
+        <div>
+          <h2>Under Markets</h2>
+          <p>Goals below the selected line.</p>
+        </div>
+      </div>
+
+      <div class="market-grid">
+
+        <div class="market-info">
+          <strong>Under 1.5</strong>
+          <span>0–1 goals</span>
+        </div>
+
+        <div class="market-info">
+          <strong>Under 2.5</strong>
+          <span>0–2 goals</span>
+        </div>
+
+        <div class="market-info">
+          <strong>Under 3.5</strong>
+          <span>0–3 goals</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- NOTICE -->
+    <section class="notice">
+
+      <div class="notice-icon">ⓘ</div>
+
+      <div>
+        <strong>Prediction Notice</strong>
+
+        <p>
+          Predictions are statistical estimates based on available
+          football data. They are not guaranteed results.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+
+    <div class="footer-logo">
+      ⚽ O/U PREDICTOR
+    </div>
+
+    <p>
+      Football Over/Under prediction platform
+    </p>
+
+    <p class="copyright">
+      © 2026 O/U Predictor
+    </p>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
+```
 
