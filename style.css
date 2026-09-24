@@ -1,1 +1,597 @@
+```css
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #050b14;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+/* HEADER */
+
+.topbar {
+  height: 70px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #07111f;
+  border-bottom: 1px solid #17263a;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.logo span {
+  margin-right: 7px;
+}
+
+.logo strong {
+  color: #00d4ff;
+}
+
+nav {
+  display: flex;
+  gap: 30px;
+}
+
+nav a {
+  color: #aebbd0;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: #00d4ff;
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: 0;
+  color: white;
+  font-size: 25px;
+}
+
+
+/* HERO */
+
+.hero {
+  min-height: 470px;
+  padding: 70px 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at 80% 50%, #073c52 0%, transparent 35%),
+    linear-gradient(135deg, #07111f, #050b14);
+}
+
+.hero-content {
+  max-width: 650px;
+}
+
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #102237;
+  color: #00d4ff;
+  border: 1px solid #1d4259;
+  padding: 9px 14px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 22px;
+}
+
+.live-badge span {
+  width: 8px;
+  height: 8px;
+  background: #19e68c;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #19e68c;
+}
+
+.hero h1 {
+  font-size: clamp(40px, 7vw, 75px);
+  line-height: 0.98;
+  letter-spacing: -3px;
+  margin-bottom: 25px;
+}
+
+.hero h1 span {
+  color: #00d4ff;
+}
+
+.hero p {
+  color: #9cabc0;
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 520px;
+  margin-bottom: 30px;
+}
+
+.main-btn {
+  display: inline-block;
+  padding: 15px 24px;
+  border-radius: 10px;
+  background: #00d4ff;
+  color: #03101a;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.main-btn:hover {
+  background: #ffffff;
+}
+
+.hero-ball {
+  font-size: 190px;
+  opacity: 0.15;
+  transform: rotate(-15deg);
+}
+
+
+/* STATS */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 0 8%;
+  margin-top: -35px;
+  position: relative;
+}
+
+.stat-card {
+  background: #0a1524;
+  border: 1px solid #172a40;
+  border-radius: 14px;
+  padding: 22px;
+  text-align: center;
+}
+
+.stat-card strong {
+  display: block;
+  font-size: 28px;
+  color: #00d4ff;
+  margin-bottom: 5px;
+}
+
+.stat-card span {
+  color: #8191a8;
+  font-size: 12px;
+}
+
+
+/* FILTER */
+
+.filters {
+  padding: 70px 8% 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+}
+
+.filters h2 {
+  font-size: 28px;
+}
+
+.subtitle {
+  color: #78899f;
+  margin-top: 7px;
+  font-size: 14px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter {
+  background: #0b1726;
+  border: 1px solid #1c3048;
+  color: #aebbd0;
+  padding: 10px 17px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.filter.active,
+.filter:hover {
+  background: #00d4ff;
+  border-color: #00d4ff;
+  color: #03101a;
+}
+
+
+/* MATCHES */
+
+.matches-container {
+  padding: 0 8%;
+}
+
+.match-card {
+  background: #0a1524;
+  border: 1px solid #182c43;
+  border-radius: 15px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.match-card:hover {
+  border-color: #00d4ff;
+  transform: translateY(-2px);
+}
+
+.match-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #0d1b2d;
+  border-bottom: 1px solid #182c43;
+}
+
+.league {
+  color: #9dacbf;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.match-time {
+  color: #00d4ff;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.teams {
+  padding: 22px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.team {
+  width: 40%;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.team:last-child {
+  text-align: right;
+}
+
+.vs {
+  color: #53657b;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.predictions {
+  padding: 0 20px 20px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.prediction {
+  background: #07111f;
+  border: 1px solid #1a2d43;
+  border-radius: 9px;
+  padding: 13px 7px;
+  text-align: center;
+}
+
+.prediction-label {
+  display: block;
+  color: #8292a8;
+  font-size: 10px;
+  margin-bottom: 7px;
+}
+
+.prediction-value {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.over-value {
+  color: #19e68c;
+}
+
+.under-value {
+  color: #4db8ff;
+}
+
+.prediction small {
+  display: block;
+  color: #596a80;
+  font-size: 9px;
+  margin-top: 4px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+/* EMPTY */
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #76869b;
+}
+
+.empty-state div {
+  font-size: 45px;
+  margin-bottom: 15px;
+}
+
+.empty-state h3 {
+  color: white;
+  margin-bottom: 8px;
+}
+
+
+/* MARKETS */
+
+.market-section {
+  margin: 70px 8% 0;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.section-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background: #0d1b2d;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+
+.section-title h2 {
+  font-size: 25px;
+}
+
+.section-title p {
+  color: #75869c;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.market-info {
+  background: #0a1524;
+  border: 1px solid #182c43;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.market-info strong {
+  display: block;
+  color: #00d4ff;
+  font-size: 18px;
+  margin-bottom: 7px;
+}
+
+.market-info span {
+  color: #718198;
+  font-size: 12px;
+}
+
+
+/* NOTICE */
+
+.notice {
+  margin: 70px 8%;
+  padding: 20px;
+  display: flex;
+  gap: 15px;
+  background: #0a1524;
+  border: 1px solid #182c43;
+  border-radius: 13px;
+}
+
+.notice-icon {
+  font-size: 24px;
+  color: #00d4ff;
+}
+
+.notice strong {
+  font-size: 14px;
+}
+
+.notice p {
+  color: #78899f;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 5px;
+}
+
+
+/* FOOTER */
+
+footer {
+  margin-top: 80px;
+  padding: 40px 8%;
+  text-align: center;
+  background: #07111f;
+  border-top: 1px solid #17263a;
+}
+
+.footer-logo {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+footer p {
+  color: #687990;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.copyright {
+  margin-top: 20px !important;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .topbar {
+    padding: 0 5%;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  nav {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    background: #07111f;
+    padding: 20px 5%;
+    border-bottom: 1px solid #17263a;
+  }
+
+  nav.open {
+    display: flex;
+  }
+
+  .hero {
+    min-height: 500px;
+    padding: 60px 6%;
+  }
+
+  .hero-ball {
+    display: none;
+  }
+
+  .hero h1 {
+    letter-spacing: -2px;
+  }
+
+  .stats {
+    padding: 0 5%;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .stat-card {
+    padding: 17px 8px;
+  }
+
+  .stat-card strong {
+    font-size: 21px;
+  }
+
+  .stat-card span {
+    font-size: 10px;
+  }
+
+  .filters {
+    padding: 55px 5% 25px;
+    display: block;
+  }
+
+  .filter-buttons {
+    margin-top: 18px;
+  }
+
+  .matches-container {
+    padding: 0 5%;
+  }
+
+  .match-top {
+    padding: 14px;
+  }
+
+  .teams {
+    padding: 20px 14px;
+  }
+
+  .team {
+    font-size: 15px;
+  }
+
+  .predictions {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 14px 14px;
+  }
+
+  .prediction {
+    padding: 12px;
+  }
+
+  .market-section {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .market-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .notice {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .stats {
+    gap: 7px;
+  }
+
+  .stat-card strong {
+    font-size: 18px;
+  }
+
+  .market-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+```
 
